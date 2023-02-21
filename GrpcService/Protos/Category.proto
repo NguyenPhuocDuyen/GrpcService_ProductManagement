@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+option csharp_namespace = "MyProto";
+
+package category;
+
+import "google/protobuf/timestamp.proto";
+
+// The greeting service definition.
+service GrpcCategory {
+  // Sends a greeting
+  rpc GetAll (Empty) returns (CategoryList);
+  rpc GetCategory (IdRequest) returns (Category);
+  rpc Create (Category) returns (Empty);
+  rpc Update (Category) returns (Empty);
+  rpc Delete (IdRequest) returns (Empty);
+}
+
+service GrpcProduct {
+  // Sends a greeting
+  rpc GetAll (Empty) returns (ProductList);
+  rpc GetProduct (IdRequest) returns (Product);
+  rpc Create (Product) returns (Empty);
+  rpc Update (Product) returns (Empty);
+  rpc Delete (IdRequest) returns (Empty);
+}
+
+message ProductList {
+    repeated Product products = 1;
+}
+// The request message containing the user's name.
+message Empty {}
+
+// The response message containing the greetings.
+message CategoryList {
+    repeated Category categorys = 1;
+}
+
+message IdRequest {
+    string id = 1;
+}
+
+message Category {
+    string id = 1;
+    string name = 2;
+    google.protobuf.Timestamp create_at = 3;
+    google.protobuf.Timestamp update_at = 4;
+    bool is_delete = 5;
+    repeated Product products = 6;
+}
+
+message Product {
+    int32 id = 1;
+    string category_id = 2;
+    string name = 3;
+    double price = 4;
+    google.protobuf.Timestamp create_at = 5;
+    google.protobuf.Timestamp update_at = 6;
+    bool is_delete = 7;
+
+    Category category = 8;
+}
