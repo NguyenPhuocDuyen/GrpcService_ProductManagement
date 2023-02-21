@@ -1,0 +1,21 @@
+﻿@model MyProto.Product
+
+<h1>Create Product</h1>
+<form asp-action="Create" method="post"> 
+    <div>
+        <label asp-for="CategoryId" class="col-form-label">CategoryId</label>
+        <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-control"></select>
+    </div>
+    <div>
+        <label asp-for="Name" class="col-form-label">Name</label>
+        <input asp-for="Name" class="form-control"/>
+    </div>
+    <div>
+        <label asp-for="Price" class="col-form-label">Price</label>
+        <input asp-for="Price" class="form-control"/>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-success">Create</button>
+        <a asp-action="Index" class="btn btn-primary">Back To List</a>
+    </div>
+</form>

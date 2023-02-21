@@ -1,0 +1,16 @@
+﻿@model MyProto.Category
+<h1>Create Category</h1>
+<form asp-action="Create" method="post"> 
+    <div>
+        <label asp-for="Id" class="col-form-label">Id</label>
+        <input asp-for="Id" class="form-control"/>
+    </div>
+    <div>
+        <label asp-for="Name" class="col-form-label">Name</label>
+        <input asp-for="Name" class="form-control"/>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-success">Create</button>
+        <a asp-action="Index" class="btn btn-primary">Back To List</a>
+    </div>
+</form>

@@ -1,0 +1,34 @@
+﻿@model MyProto.Category
+
+<h1>Detail Category</h1>
+<table class="table d-xl-table-cell">
+    <tr>
+        <th>Id</th>
+        <td>@Model.Id</td>
+    </tr>
+    <tr>
+        <th>Name</th>
+        <td>@Model.Name</td>
+    </tr>
+    <tr>
+        <th>Create At</th>
+        <td>@Model.CreateAt</td>
+    </tr>
+    <tr>
+        <th>Update At</th>
+        <td>@Model.UpdateAt</td>
+    </tr>
+    <tr>
+        <th>Is Delete</th>
+        <td>@Model.IsDelete</td>
+    </tr>
+    <tr>
+        <th></th>
+        <td>
+            <form asp-action="Delete" method="post">
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <a asp-action="Index" class="btn btn-primary">Back To List</a>
+            </form>
+        </td>
+    </tr>
+</table>

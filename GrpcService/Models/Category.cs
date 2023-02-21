@@ -12,11 +12,11 @@ namespace GrpcService.Models
             Products = new HashSet<Product>();
         }
 
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public DateTime? CreateAt { get; set; }
-        public DateTime? UpdateAt { get; set; }
-        public bool? IsDelete { get; set; }
+        public string Id { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public DateTime? CreateAt { get; set; } = DateTime.Now;
+        public DateTime? UpdateAt { get; set; } = DateTime.Now;
+        public bool? IsDelete { get; set; } = false;
 
         public virtual ICollection<Product> Products { get; set; }
     }

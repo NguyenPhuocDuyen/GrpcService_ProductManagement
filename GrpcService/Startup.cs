@@ -33,6 +33,17 @@ namespace GrpcService
 
             app.UseRouting();
 
+            using (IServiceScope scope = app.ApplicationServices.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                var context = services.GetRequiredService<GrpcServiceContext>();
+                context.Database.EnsureCreated();
+
+                var a = new DbInitializer(context);
+                a.Initialize();
+            }
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<CategoryService>();

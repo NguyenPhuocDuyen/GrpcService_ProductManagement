@@ -1,5 +1,6 @@
 using Grpc.Core;
 using GrpcService.Models;
+using Microsoft.EntityFrameworkCore;
 using MyProto;
 using System;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace GrpcService
         {
             var response = new ProductList();
 
-            var producrs = from obj in _db.Products
+            var producrs = from obj in _db.Products.Include(x=>x.Category)
                                //where obj.IsDelete == false
                            select new MyProto.Product
                            {
@@ -31,7 +32,8 @@ namespace GrpcService
                                Price = (double)obj.Price,
                                CreateAt = DateTimeToTimestamp(obj.CreateAt),
                                UpdateAt = DateTimeToTimestamp(obj.UpdateAt),
-                               IsDelete = obj.IsDelete ?? false
+                               IsDelete = obj.IsDelete ?? false,
+                               Category = new MyProto.Category { Id= obj.CategoryId, Name = obj.Category.Name }
                            };
 
             response.Products.AddRange(producrs);
@@ -41,7 +43,7 @@ namespace GrpcService
 
         public override Task<MyProto.Product> GetProduct(IdRequest request, ServerCallContext context)
         {
-            var product = _db.Products.Find( int.Parse(request.Id));
+            var product = _db.Products.Include(x=>x.Category).ToList().FirstOrDefault(x=>x.Id == int.Parse(request.Id));
 
             if (product == null || product.IsDelete == true)
             {
@@ -57,7 +59,8 @@ namespace GrpcService
                 Price = (double)product.Price,
                 CreateAt = DateTimeToTimestamp(product.CreateAt),
                 UpdateAt = DateTimeToTimestamp(product.UpdateAt),
-                IsDelete = product.IsDelete ?? false
+                IsDelete = product.IsDelete ?? false,
+                Category = new MyProto.Category { Id= product.CategoryId,Name = product.Category.Name }
             };
 
             return Task.FromResult(response);

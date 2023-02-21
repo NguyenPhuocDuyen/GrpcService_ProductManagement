@@ -1,0 +1,33 @@
+﻿@model MyProto.CategoryList
+
+<h1>Category</h1>
+<a asp-action="Create" class="btn btn-primary">Create</a>
+<hr/>
+<table class="table d-xl-table-cell">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Create At</th>
+        <th>Update At</th>
+        <th>Is Delete</th>
+        <th>Action</th>
+    </tr>
+    @foreach(var item in Model.Categorys)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.CreateAt</td>
+            <td>@item.UpdateAt</td>
+            <td>@item.IsDelete</td>
+            <td>
+                @if (!item.IsDelete)
+                {
+                    <a asp-action="Details" asp-route-id=@item.Id class="btn btn-primary">Details</a>
+                    <a asp-action="Edit" asp-route-id=@item.Id class="btn btn-success">Edit</a>
+                    <a asp-action="Delete" asp-route-id=@item.Id class="btn btn-danger">Delete</a>
+                }
+            </td>
+        </tr>
+    }
+</table>
